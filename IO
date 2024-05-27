@@ -1,0 +1,16 @@
+private void init() {
+    // ... [Initialization code from above]
+
+    // Set up key callback
+    GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+        if (key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_PRESS) {
+            GLFW.glfwSetWindowShouldClose(window, true);
+        }
+        // Add other key bindings here
+    });
+
+    // Set up mouse callback
+    GLFW.glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
+        // Handle mouse movement
+    });
+}
