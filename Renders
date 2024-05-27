@@ -1,0 +1,34 @@
+private int shaderProgram;
+
+private void init() {
+    // ... [Initialization code from above]
+
+    // Load and compile shaders
+    int vertexShader = createShader("vertex_shader.glsl", GL20.GL_VERTEX_SHADER);
+    int fragmentShader = createShader("fragment_shader.glsl", GL20.GL_FRAGMENT_SHADER);
+
+    // Link shaders to create a program
+    shaderProgram = GL20.glCreateProgram();
+    GL20.glAttachShader(shaderProgram, vertexShader);
+    GL20.glAttachShader(shaderProgram, fragmentShader);
+    GL20.glLinkProgram(shaderProgram);
+    if (GL20.glGetProgrami(shaderProgram, GL20.GL_LINK_STATUS) == GL11.GL_FALSE) {
+        throw new RuntimeException("Failed to link shader program");
+    }
+    GL20.glUseProgram(shaderProgram);
+}
+
+private int createShader(String filename, int shaderType) {
+    String shaderSource = readFileAsString(filename);
+    int shader = GL20.glCreateShader(shaderType);
+    GL20.glShaderSource(shader, shaderSource);
+    GL20.glCompileShader(shader);
+    if (GL20.glGetShaderi(shader, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
+        throw new RuntimeException("Failed to compile shader: " + GL20.glGetShaderInfoLog(shader));
+    }
+    return shader;
+}
+
+private String readFileAsString(String filename) {
+    // Read file content and return as string
+}
